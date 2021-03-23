@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% block title %}Mettre à jour une tâche{% endblock %}
+{% block body %}
+
+    <h3>Mettre à jour une tâche!</h3>
+    <br>
+    
+    <div class="form-group">
+      <label for="exampleTextarea">Tâche:</label>
+      <textarea class="form-control" id="exampleTextarea" rows="3">{{task.title}}</textarea>
+    </div>
+    <br>
+    <div class="form-group">
+    <label class="col-form-label" for="inputDefault">Catégorie:</label>
+    <input type="text" class="form-control" placeholder="{{task.category}}" id="inputDefault">
+    </div>
+
+<button type="button" class="btn btn-warning">Ajouter</button>
+</body>
+</html>
+{% endblock %}

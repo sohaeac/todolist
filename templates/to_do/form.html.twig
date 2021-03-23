@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+{% block title %}Ajouter une tâche{% endblock %}
+{% block body %}
+
+    <h3>
+    
+    {% if EditMode %}
+        Modifier la tâche 
+    {% else %}
+        Créer une tâche
+    {% endif %}
+
+    </h3>
+
+    {{form_start(formTask)}}
+
+      <div class="form-group">
+        <label for="">Titre de la tâche</label>
+        {{form_widget(formTask.title)}}
+      </div>
+
+      <div class="form-group">
+        <label for="">Catégorie</label>
+        {{form_widget(formTask.category)}}
+      </div>
+
+      <div class="form-group">
+        <label for="">Priorité</label>
+        {{form_widget(formTask.priority)}}
+      </div>
+
+      <div class="form-group">
+        <label for="">Status</label>
+        {{form_widget(formTask.status)}}
+      </div>
+
+      <div class="form-group">
+        <label for="">A faire pour le: </del></label>
+        {{form_widget(formTask.task_date)}}
+      </div>
+
+   
+    {% if EditMode %}
+        <button type="submit" class='btn btn-success' onclick= "return confirm('Vous êtes sûr de vouloir modifier la tâche?')"> 
+        Enregistrer
+  
+    {% else %}
+        <button type="submit" class='btn btn-success' onclick= "return confirm('Vous êtes sûr de vouloir ajouter la tâche?')"> 
+        Ajouter la tâche
+    {% endif %}
+    </button>
+    {{form_end(formTask)}}
+
+{% endblock %}
