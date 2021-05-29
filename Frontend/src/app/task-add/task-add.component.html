@@ -1,0 +1,69 @@
+<!--
+<div>
+
+<h2>Product add </h2>
+<p>{{task | json}}</p>
+
+<input type='text' [(ngModel)]="task.title" placeholder="enter title"><br>
+<input type='text' [(ngModel)]="task.status" placeholder="enter status"><br>
+<input type='text' [(ngModel)]="task.priority" placeholder="enter priority"><br>
+<input type='text' [(ngModel)]="task.task_date" placeholder="enter task_date"><br>
+<input type='text' [(ngModel)]="task.category" placeholder="enter category"><br><br>
+<button class="btn btn-success" (click)="addTask()">Save</button>
+</div> 
+-->
+<div class="container mt-5"> 
+<h2>{{header}}</h2>
+
+<!--<p>{{task | json}}</p>-->
+<form (ngSubmit)="addTask(regForm)" #regForm="ngForm"  novalidate >
+    <div class="form-group">
+        <label> Tâche:</label>
+        <input type="text" class="form-control" required  #title="ngModel"[(ngModel)]="task.title" name="title" placeholder="Entrez le titre">
+        <div *ngIf="title.errors && (title.dirty || title.touched)" class="alert alert-danger">
+            <div [hidden]="!title.errors.required">Champ obligatoire</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label> Status: </label>
+        <select class="form-control"  pattern="(true|null)" #status="ngModel"[(ngModel)]="task.status" name="status" >
+            <option [ngValue]="true " selected>Fini</option>
+            <option [ngValue]="null" >Pas fini</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label> Priorité: </label>
+        <select class="form-control"  #priority="ngModel" [(ngModel)]="task.priority" name="priority" placeholder="Entrez la priorité ">
+            <option value="high">Haute</option>
+            <option value="normal">Moyenne</option>
+            <option value="low">Basse</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label> Date de la tâche: </label><br>
+        <label style="color:#07559e"><h4>{{task.task_date|date:'dd/MM/yyyy'}}</h4></label>
+        <input type="date" class="form-control" required #taskdate="ngModel"[(ngModel)]="task.task_date" name="task_date">
+        <div *ngIf="title.errors && (title.dirty || title.touched)" class="alert alert-danger">
+            <div [hidden]="!title.errors.required">Champ obligatoire</div>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <label> Catégorie </label>
+        <select class="form-control"  required #category="ngModel"[(ngModel)]="task.category" name="category" placeholder="Entrez la priorité ">
+            <option value="Maison">Maison</option>
+            <option value="Travail">Travail</option>
+            <option value="Ecole">Ecole</option>
+            <option value="Autre">Autre</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <button [disabled]="!regForm.form.valid" type="submit" class="btn btn-danger">Save</button>
+    </div>
+</form>
+
+</div>

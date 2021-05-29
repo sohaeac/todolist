@@ -16,19 +16,30 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class ToDoController extends AbstractController
 {
     /**
-     * @Route("/tasks", name="tasks")
+     * @Route("/tasks", name="tasks", methods={"GET"})
      */
-    public function tasks(): Response
+    public function tasks(SerializerInterface $serializer): Response
     {
         $repo=$this->getDoctrine()->getRepository(Task::class); //Repository
         $tasks = $repo->findAll();
-
+        
         $repo2 = $this->getDoctrine()->getRepository(Category::class);
         $categories = $repo2->findAll();
+        
+        //$json = $serializer->serialize($tasks,'json',['groups' => 'prueba']);
+        
+        //dd($json);
+        
+        $json = json_encode($tasks);
+        //dd($json,$tasks);
+        
+        //dd($tasks);
 
         return $this->render('to_do/tasks.html.twig', [
             'controller_name' => 'ToDoController',
@@ -115,6 +126,7 @@ class ToDoController extends AbstractController
 
     /**
      * @Route("/task/delete_task/{id}", name="deleteTask")
+     * 
      */
     public function delete_task(Task $id) {
 
@@ -124,5 +136,32 @@ class ToDoController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('tasks');
+    }
+    
+    /**
+     * @Route("/task/search/{category}", name="filter_category")
+     */
+    public function filter_category($category) {
+
+        $repo = $this->getDoctrine()->getRepository(Task::class);
+        $tasks = $repo->findAll();
+
+        $filteredTasks = array();
+        foreach ($tasks as $task) {
+            if($task->getCategory()->getTitle() == $category)
+            {
+                array_push($filteredTasks, $task);
+            }
+        }
+        dump($filteredTasks);
+
+        $repo2 = $this->getDoctrine()->getRepository(Category::class);
+        $categories = $repo2->findAll();
+
+        return $this->render('to_do/tasks.html.twig', [
+            'title' => 'Index',
+            'tasks' => $filteredTasks,
+            'categories' => $categories
+        ]);
     }
 }

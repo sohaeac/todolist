@@ -1,0 +1,13 @@
+form{
+    border-radius: 5px;
+    background-color: rgba(173, 179, 169, 0.918);
+    padding: 20px;
+}
+
+input.ng-invalid{
+    border-color: red;
+
+}
+input.ng-untouched{
+    border-color: #ced4da;
+}

@@ -2,8 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\TaskRepository;
+use App\Entity\Category;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\TaskRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
  * @ORM\Entity(repositoryClass=TaskRepository::class)
@@ -14,37 +17,47 @@ class Task
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("tasks")
      */
+    
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("tasks")
      */
+    
     private $title;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Groups("tasks")
      */
     private $status;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("tasks")
      */
+    
     private $priority;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups("tasks")
      */
     private $task_date;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("tasks")
      */
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="tasks")
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="tasks",cascade={"persist"}))
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("cat")
      */
     private $category;
 

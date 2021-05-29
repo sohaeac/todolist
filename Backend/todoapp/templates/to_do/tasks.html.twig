@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Toutes les tâches{% endblock %}
+
+{% block body %}
+
+
+<h2 style="float:center; margin-left: 20px; margin-top: 15px;">Toutes les tâches </h2>
+<p>
+<section>
+    {% for category in categories %}            
+        <a href="{{ path('filter_category', {'category' : category.Title }) }}"class="btn btn-outline-primary" style="margin-left: 10px; margin-top: 15px;">{{category.Title}}</a>    
+    {% endfor %}
+    <a href="{{ path('tasks') }}" class="btn btn-outline-primary" style="float:center; margin-left: 20px; margin-top: 15px;">Toutes les catégories</a>
+</section>
+<br>
+
+
+<table class="table table-hover" style="float:center; margin-left: 15px; margin-top: 15px;">
+  <thead>
+    <tr>
+      <th scope="col"><h4>Tâche</h4></th>
+      <th scope="col"><h4>Priorité</h4></th>
+      <th scope="col"><h4>A faire pour:</h4></th>
+      <th scope="col" style="width: 150px" ><h4></h4></th>
+      <th scope="col" style="width: 150px"><h4></h4></th>
+    </tr>
+  </thead>
+
+
+{% for task in tasks %}
+  {% set prioritycolor = '' %}
+  {% if task.priority == 'low' %}
+  {% set prioritycolor = '<a  class="btn btn-success">'~ task.priority ~'</a>' %}
+  {% elseif task.priority == 'normal'%}
+  {% set prioritycolor = '<a  class="btn btn-warning">'~ task.priority ~'</a>' %}
+  {% else %}
+  {% set prioritycolor = '<a  class="btn btn-danger">'~ task.priority ~'</a>' %}
+  {% endif %}
+
+
+  {% if task.status %}
+  <tbody>
+    <tr class="table-active">
+      <th scope="row"><h5><del>{{task.title}} </del></h5></th>
+      <td>{{prioritycolor | raw}}</a></td>
+      <td><a  class="btn btn-info">{{task.TaskDate | date('d/m/Y')}}</a></td>
+      <td><a href = "{{path('editTask',{id:task.id})}}" class="btn btn-success">Mettre à jour</a></td>
+      <td><a  onclick= "return confirm('Vous êtes sûr de vouloir supprimer la tâche?')" href = "{{path('deleteTask',{id:task.id})}}" class="btn btn-danger">Supprimer</a>  </p></td>
+    </tr>
+    </tbody>
+{% else %}
+     <tbody>
+    <tr class="table-active">
+      <th scope="row"><h5>{{task.title}}</h5></th>
+      <td>{{prioritycolor | raw}}</td>
+      <td><a  class="btn btn-info">{{task.TaskDate | date('d/m/Y')}}</a></td>
+      <td><a href = "{{path('editTask',{id:task.id})}}" class="btn btn-success">Mettre à jour</a></td>
+      <td><a  onclick= "return confirm('Vous êtes sûr de vouloir supprimer la tâche?')" href = "{{path('deleteTask',{id:task.id})}}" class="btn btn-danger">Supprimer</a>  </p></td>
+    </tr>
+</tbody>
+{% endif %}
+{% endfor %}
+
+</table>
+
+
+{% endblock %}

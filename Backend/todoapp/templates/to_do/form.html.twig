@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block title %}Ajouter une tâche{% endblock %}
 {% block body %}
-
+    <div class="container mt-5"> 
     <h3>
     
     {% if EditMode %}
@@ -13,7 +13,7 @@
     </h3>
 
     {{form_start(formTask)}}
-
+      
       <div class="form-group">
         <label for="">Titre de la tâche</label>
         {{form_widget(formTask.title)}}
@@ -38,6 +38,8 @@
         <label for="">A faire pour le: </del></label>
         {{form_widget(formTask.task_date)}}
       </div>
+      
+
 
    
     {% if EditMode %}
@@ -49,6 +51,7 @@
         Ajouter la tâche
     {% endif %}
     </button>
+    </div>
     {{form_end(formTask)}}
 
 {% endblock %}

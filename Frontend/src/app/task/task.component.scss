@@ -1,0 +1,30 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css");
+
+.container {
+    padding-top: 50px;
+    padding-bottom: 10px;
+    color: #405065;
+  }
+  
+  .search-hero {
+    max-width: 200px;
+    padding-bottom: 5px;
+    float:center; 
+    margin-left: 20px; 
+    margin-top: 15px;
+  }
+  
+  .form-control {
+    box-shadow: 0 10px 40px 0 #B0C1D9;
+  }
+  .form-control::placeholder  {
+    font-family: FontAwesome;
+  }
+  .strikethrough {
+    color: black;
+    text-decoration: line-through;
+    text-decoration-color:red;
+    text-decoration-style: dashed;
+
+    
+}
